@@ -14,20 +14,32 @@ namespace Exercicio
         {
             var clientes = new List<dynamic>();
             var estacionados = new List<dynamic>();
-            double preco = new double();
+            double preco = 0;
+            double receitaTotal = 0;
+            Console.WriteLine("==============================================================");
+            Console.WriteLine("                  ESTACIONAMENTO GRUPO 3                      ");
+            Console.WriteLine("==============================================================");
+
+            Console.Write("Informe o valor inicial do estacionamento por minuto R$ ");
+            preco = Double.Parse(Console.ReadLine());
+
             while (true)
             {
                 Console.Clear();
-                Console.WriteLine("Digite uma das opções abaixo:");
-                Console.WriteLine("1 - Configurar Preço");
+                Console.WriteLine("==============================================================");
+                Console.WriteLine("           ESTACIONAMENTO GRUPO 3 - MENU DE OPÇÕES            ");
+                Console.WriteLine("==============================================================");
+                Console.WriteLine($"1 - Alterar Preço Atual (R$ {preco})");
                 Console.WriteLine("2 - Cadastrar Cliente");
                 Console.WriteLine("3 - Cadastrar Veículos de Clientes");
                 Console.WriteLine("4 - Listar Clientes");
                 Console.WriteLine("5 - Listar Veículos Estacionados");
                 Console.WriteLine("6 - Cadastrar Entrada");
                 Console.WriteLine("7 - Cadastrar Saída");
+                Console.WriteLine("8 - Relatório de receita total");
                 Console.WriteLine("9 - Sair");
 
+                Console.Write("Digite uma das opções continuar: ");
                 var opcao = Console.ReadLine();
                 var sair = false;
 
@@ -35,11 +47,13 @@ namespace Exercicio
                 {
                     case "1":
                         Console.Clear();
+                        Console.WriteLine("=========Alteração de preço=======");
                         Console.Write("Digite o valor por minuto R$ ");
                         preco = Double.Parse(Console.ReadLine());
                         break;
                     case "2":
                         Console.Clear();
+                        Console.WriteLine("=========Cadastro de cliente=======");
                         Console.Write("Informe o nome do cliente: ");
                         string nome = Console.ReadLine();
                         Console.Write("Informe o CPF do cliente: ");
@@ -50,18 +64,22 @@ namespace Exercicio
                         Thread.Sleep(1000);
                         break;
                     case "3":
+                        Console.Clear();
+                        Console.WriteLine("=========Cadastro de veículos=======");
                         Console.Write("Informe o CPF do cliente: ");
                         string cpfCliente = Console.ReadLine();
                         int encontrado = -1;
-                        for(int i = 0; i < clientes.Count(); i++)
+                        dynamic clienteEncontrado = null;
+                        for (int i = 0; i < clientes.Count(); i++)
                         {
                             if (clientes[i].Cpf == cpfCliente)
                             {
                                 encontrado = i;
+                                clienteEncontrado = clientes[i];
                                 break;
                             }
                         }
-                        if(encontrado < 0)
+                        if (encontrado < 0)
                         {
                             Console.WriteLine("Cliente não encontrado ...");
                             Thread.Sleep(1000);
@@ -74,7 +92,7 @@ namespace Exercicio
                             string modelo = Console.ReadLine();
                             Console.Write("Informe a placa do veículo: ");
                             string placa = Console.ReadLine();
-                            dynamic veiculo = new { Id = Guid.NewGuid(), Cliente_id = clientes[encontrado].Id, Marca = marca, Modelo = modelo, Placa = placa };
+                            dynamic veiculo = new { Id = Guid.NewGuid(), Cliente_id = clienteEncontrado.Id, Marca = marca, Modelo = modelo, Placa = placa };
                             clientes[encontrado].Veiculos.Add(veiculo);
                             Console.WriteLine("Veículo cadastrado com sucesso!");
                             Thread.Sleep(1000);
@@ -84,13 +102,13 @@ namespace Exercicio
                     case "4":
                         Console.Clear();
                         Console.WriteLine("=========Lista de clientes=======");
-                        foreach(var item in clientes)
+                        foreach (var item in clientes)
                         {
                             Console.WriteLine($"Id: {item.Id}");
                             Console.WriteLine($"Nome: {item.Nome}");
                             Console.WriteLine($"CPF: {item.Cpf}");
                             Console.WriteLine("----Veículos do cliente----");
-                            foreach(var veiculo in item.Veiculos)
+                            foreach (var veiculo in item.Veiculos)
                             {
                                 Console.WriteLine($"Id: {veiculo.Id} - Marca: {veiculo.Marca} - Modelo: {veiculo.Modelo} - Placa: {veiculo.Placa}");
                             }
@@ -104,13 +122,16 @@ namespace Exercicio
                         Console.WriteLine("=========Lista de veículos estacionados=======");
                         foreach (var item in estacionados)
                         {
-                            foreach (var itemCliente in clientes)
+                            if (item.Saida == "")
                             {
-                                foreach (var veiculo in itemCliente.Veiculos)
+                                foreach (var itemCliente in clientes)
                                 {
-                                    if (item.Veiculo_id == veiculo.Id)
+                                    foreach (var veiculo in itemCliente.Veiculos)
                                     {
-                                        Console.WriteLine($"Marca: {veiculo.Marca} - Modelo: {veiculo.Modelo} - Placa: {veiculo.Placa} - Entrada: {item.Entrada}");
+                                        if (item.Veiculo_id == veiculo.Id)
+                                        {
+                                            Console.WriteLine($"Marca: {veiculo.Marca} - Modelo: {veiculo.Modelo} - Placa: {veiculo.Placa} - Entrada: {item.Entrada}");
+                                        }
                                     }
                                 }
                             }
@@ -120,28 +141,27 @@ namespace Exercicio
                         Console.ReadKey();
                         break;
                     case "6":
+                        Console.Clear();
                         Console.WriteLine("=========Entrada de Veículo=======");
                         Console.Write("Informe a placa do veículo: ");
                         string placaVeiculo = Console.ReadLine();
-                        int encontrou = -1;
-                        Guid? veiculoId = null;
-                        foreach(var item in clientes)
+                        dynamic veiculoEntrada = null;
+                        foreach (var item in clientes)
                         {
-                            for(int i = 0; i < item.Veiculos.Count; i++)
+                            for (int i = 0; i < item.Veiculos.Count; i++)
                             {
                                 if (item.Veiculos[i].Placa == placaVeiculo)
                                 {
-                                    veiculoId = item.Veiculos[i].Id;
-                                    encontrou = i;
+                                    veiculoEntrada = item.Veiculos[i];
                                     break;
                                 }
                             }
-                            if(encontrou >= 0)
+                            if (veiculoEntrada != null)
                             {
                                 break;
                             }
                         }
-                        if(encontrou < 0)
+                        if (veiculoEntrada == null)
                         {
                             Console.WriteLine("Veículo não encontrado, faça o cadastro do cliente/veículo ...");
                             Thread.Sleep(1000);
@@ -167,7 +187,7 @@ namespace Exercicio
                             }
                             if (!erro)
                             {
-                                dynamic estacionado = new { Id = new Guid(), Veiculo_id = veiculoId, Entrada = dataHoraEntrada, Saida = "" };
+                                dynamic estacionado = new { Id = new Guid(), Veiculo_id = veiculoEntrada.Id, Entrada = dataHoraEntrada, Saida = "" };
                                 estacionados.Add(estacionado);
                                 Console.WriteLine("Veículo estacionado com sucesso!");
                                 Thread.Sleep(1000);
@@ -175,41 +195,39 @@ namespace Exercicio
                         }
                         break;
                     case "7":
+                        Console.Clear();
                         Console.WriteLine("=========Saída de Veículo=======");
                         Console.Write("Informe a placa do veículo: ");
                         string placaVeiculoSaida = Console.ReadLine();
-                        int encontrouVeiculoDeCliente = -1;
-                        int encontrouEstacionado = -1;
-                        Guid? veiculoIdEntrada = null;
                         DateTime dataHoraEntradaVeiculo = DateTime.Now;
                         dynamic veiculoEncontrado = null;
                         dynamic veiculoEstacionado = null;
+                        int posicaoVeiculoEstacionado = -1;
                         foreach (var item in clientes)
                         {
                             for (int i = 0; i < item.Veiculos.Count; i++)
                             {
                                 if (item.Veiculos[i].Placa == placaVeiculoSaida)
                                 {
-                                    veiculoIdEntrada = item.Veiculos[i].Id;
-                                    encontrouVeiculoDeCliente = i;
                                     veiculoEncontrado = item.Veiculos[i];
                                     break;
                                 }
                             }
-                            if (encontrouVeiculoDeCliente >= 0)
+                            if (veiculoEncontrado != null)
                             {
                                 break;
                             }
                         }
 
-                        foreach(var item in estacionados)
+                        for(int i = 0; i < estacionados.Count; i++)
                         {
-                            if(item.Veiculo_id == veiculoEncontrado.Id)
+                            if (estacionados[i].Veiculo_id == veiculoEncontrado.Id)
                             {
-                                veiculoEstacionado = item;
+                                posicaoVeiculoEstacionado = i;
+                                veiculoEstacionado = estacionados[i];
                             }
                         }
-                        
+
                         if (veiculoEstacionado == null)
                         {
                             Console.WriteLine("Veículo não está estacionado ...");
@@ -245,10 +263,24 @@ namespace Exercicio
                                 string totalTicketString = string.Format("{0:N2}", totalTicket);
                                 Console.WriteLine($"O valor total do período é de R$: {totalTicketString}.");
 
+                                receitaTotal += totalTicket;
+
+                                estacionados.Remove(posicaoVeiculoEstacionado);
+                                dynamic novoEstacionado = new { Id = veiculoEstacionado.Id, Veiculo_id = veiculoEstacionado.Veiculo_id, Entrada = veiculoEstacionado.Entrada, Saida = dataHoraSaida };
+                                estacionados.Add(novoEstacionado);
+
                                 Console.WriteLine("Pressione qualquer tecla para voltar ao menu ...");
                                 Console.ReadKey();
                             }
                         }
+                        break;
+                    case "8":
+                        Console.Clear();
+                        Console.WriteLine("=========Relatório de Receita=======");
+                        string totalReceitaString = string.Format("{0:N2}", receitaTotal);
+                        Console.WriteLine($"O valor total acumulado no estacionamento foi de R$: {totalReceitaString}.");
+                        Console.WriteLine("Pressione qualquer tecla para voltar ao menu ...");
+                        Console.ReadKey();
                         break;
                     case "9":
                         sair = true;
@@ -259,10 +291,11 @@ namespace Exercicio
                         break;
                 }
 
-                if (sair) break;
+                if (sair)
+                {
+                    break;
+                }
             }
-
-
         }
     }
 }
