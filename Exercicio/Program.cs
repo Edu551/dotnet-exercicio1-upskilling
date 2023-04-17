@@ -81,7 +81,7 @@ namespace Exercicio
                         }
                         if (encontrado < 0)
                         {
-                            Console.WriteLine("Cliente não encontrado ...");
+                            Console.WriteLine("Erro! Cliente não encontrado ...");
                             Thread.Sleep(1000);
                         }
                         else
@@ -120,6 +120,10 @@ namespace Exercicio
                     case "5":
                         Console.Clear();
                         Console.WriteLine("=========Lista de veículos estacionados=======");
+                        if(estacionados.Count == 0)
+                        {
+                            Console.WriteLine("O estacionamento está vazio!");
+                        }
                         foreach (var item in estacionados)
                         {
                             foreach (var itemCliente in clientes)
@@ -274,6 +278,10 @@ namespace Exercicio
                                 TimeSpan diferenca = dataHoraSaida.Subtract(dataHoraEntradaVeiculo);
                                 TimeSpan diferencaSemSegundos = new TimeSpan(diferenca.Hours, diferenca.Minutes, 0);
                                 double minutos = diferencaSemSegundos.TotalMinutes;
+                                if(minutos == 0)
+                                {
+                                    minutos = 1; //Tempo mínimo
+                                }
                                 double totalTicket = minutos * preco;
                                 string totalTicketString = string.Format("{0:N2}", totalTicket);
                                 Console.WriteLine($"O valor total do período é de R$: {totalTicketString}.");
