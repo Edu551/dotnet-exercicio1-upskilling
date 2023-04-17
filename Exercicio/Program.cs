@@ -107,7 +107,7 @@ namespace Exercicio
                             Console.WriteLine($"Id: {item.Id}");
                             Console.WriteLine($"Nome: {item.Nome}");
                             Console.WriteLine($"CPF: {item.Cpf}");
-                            Console.WriteLine("----Veículos do cliente----");
+                            Console.WriteLine("Veículos do cliente:");
                             foreach (var veiculo in item.Veiculos)
                             {
                                 Console.WriteLine($"Id: {veiculo.Id} - Marca: {veiculo.Marca} - Modelo: {veiculo.Modelo} - Placa: {veiculo.Placa}");
@@ -122,16 +122,13 @@ namespace Exercicio
                         Console.WriteLine("=========Lista de veículos estacionados=======");
                         foreach (var item in estacionados)
                         {
-                            if (item.Saida == "")
+                            foreach (var itemCliente in clientes)
                             {
-                                foreach (var itemCliente in clientes)
+                                foreach (var veiculo in itemCliente.Veiculos)
                                 {
-                                    foreach (var veiculo in itemCliente.Veiculos)
+                                    if (item.Veiculo_id == veiculo.Id)
                                     {
-                                        if (item.Veiculo_id == veiculo.Id)
-                                        {
-                                            Console.WriteLine($"Marca: {veiculo.Marca} - Modelo: {veiculo.Modelo} - Placa: {veiculo.Placa} - Entrada: {item.Entrada}");
-                                        }
+                                        Console.WriteLine($"Marca: {veiculo.Marca} - Modelo: {veiculo.Modelo} - Placa: {veiculo.Placa} - Entrada: {item.Entrada}");
                                     }
                                 }
                             }
@@ -163,34 +160,52 @@ namespace Exercicio
                         }
                         if (veiculoEntrada == null)
                         {
-                            Console.WriteLine("Veículo não encontrado, faça o cadastro do cliente/veículo ...");
+                            Console.WriteLine("Erro! Veículo não encontrado, faça o cadastro do cliente/veículo ...");
                             Thread.Sleep(1000);
                         }
                         else
                         {
-                            Console.Write("Informe a data e hora (dd/MM/yyyy HH:mm) de entrada do veículo ou ENTER para usar data/hora atual: ");
-                            string dataInformada = Console.ReadLine();
-                            DateTime dataHoraEntrada = DateTime.Now;
-                            bool erro = false;
-                            if (dataInformada != "")
+                            bool estaEstacionado = false;
+                            for (int i = 0; i < estacionados.Count; i++)
                             {
-                                if (dataInformada.Length != 16)
+                                if (estacionados[i].Veiculo_id == veiculoEntrada.Id)
                                 {
-                                    erro = true;
-                                    Console.WriteLine("Data/Hora informada é inválida!");
-                                    Thread.Sleep(1000);
-                                }
-                                else
-                                {
-                                    dataHoraEntrada = DateTime.ParseExact(dataInformada, "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
+                                    estaEstacionado = true;
+                                    break;
                                 }
                             }
-                            if (!erro)
+
+                            if (estaEstacionado)
                             {
-                                dynamic estacionado = new { Id = new Guid(), Veiculo_id = veiculoEntrada.Id, Entrada = dataHoraEntrada, Saida = "" };
-                                estacionados.Add(estacionado);
-                                Console.WriteLine("Veículo estacionado com sucesso!");
+                                Console.WriteLine("Erro! Veículo já está estacionado ...");
                                 Thread.Sleep(1000);
+                            }
+                            else
+                            {
+                                Console.Write("Informe a data e hora (dd/MM/yyyy HH:mm) de entrada do veículo ou ENTER para usar data/hora atual: ");
+                                string dataInformada = Console.ReadLine();
+                                DateTime dataHoraEntrada = DateTime.Now;
+                                bool erro = false;
+                                if (dataInformada != "")
+                                {
+                                    if (dataInformada.Length != 16)
+                                    {
+                                        erro = true;
+                                        Console.WriteLine("Data/Hora informada é inválida!");
+                                        Thread.Sleep(1000);
+                                    }
+                                    else
+                                    {
+                                        dataHoraEntrada = DateTime.ParseExact(dataInformada, "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
+                                    }
+                                }
+                                if (!erro)
+                                {
+                                    dynamic estacionado = new { Id = new Guid(), Veiculo_id = veiculoEntrada.Id, Entrada = dataHoraEntrada, Saida = "" };
+                                    estacionados.Add(estacionado);
+                                    Console.WriteLine("Veículo estacionado com sucesso!");
+                                    Thread.Sleep(1000);
+                                }
                             }
                         }
                         break;
@@ -230,7 +245,7 @@ namespace Exercicio
 
                         if (veiculoEstacionado == null)
                         {
-                            Console.WriteLine("Veículo não está estacionado ...");
+                            Console.WriteLine("Erro! Veículo não está estacionado ...");
                             Thread.Sleep(1000);
                         }
                         else
@@ -265,9 +280,7 @@ namespace Exercicio
 
                                 receitaTotal += totalTicket;
 
-                                estacionados.Remove(posicaoVeiculoEstacionado);
-                                dynamic novoEstacionado = new { Id = veiculoEstacionado.Id, Veiculo_id = veiculoEstacionado.Veiculo_id, Entrada = veiculoEstacionado.Entrada, Saida = dataHoraSaida };
-                                estacionados.Add(novoEstacionado);
+                                estacionados.RemoveAt(posicaoVeiculoEstacionado);
 
                                 Console.WriteLine("Pressione qualquer tecla para voltar ao menu ...");
                                 Console.ReadKey();
@@ -286,7 +299,7 @@ namespace Exercicio
                         sair = true;
                         break;
                     default:
-                        Console.WriteLine("Opção inválida ...");
+                        Console.WriteLine("Erro! Opção inválida ...");
                         Thread.Sleep(1000);
                         break;
                 }
