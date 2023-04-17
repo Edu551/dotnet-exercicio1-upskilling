@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Exercicio.Services;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -92,8 +93,19 @@ namespace Exercicio
                             string modelo = Console.ReadLine();
                             Console.Write("Informe a placa do veículo: ");
                             string placa = Console.ReadLine();
-                            dynamic veiculo = new { Id = Guid.NewGuid(), Cliente_id = clienteEncontrado.Id, Marca = marca, Modelo = modelo, Placa = placa };
+                            dynamic veiculo = new { 
+                                Id = Guid.NewGuid(), 
+                                Cliente_id = clienteEncontrado.Id, 
+                                Marca = marca, 
+                                Modelo = modelo, 
+                                Placa = placa };
+
                             clientes[encontrado].Veiculos.Add(veiculo);
+
+                            JsonPersistenciaService.Salvar(veiculo);
+
+
+
                             Console.WriteLine("Veículo cadastrado com sucesso!");
                             Thread.Sleep(1000);
                         }

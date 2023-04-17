@@ -14,3 +14,14 @@ D:\code\Ânima\Upskilling .Net\Trabalhos\dotnet-exercicio1-upskilling\Exercicio\
 D:\code\Ânima\Upskilling .Net\Trabalhos\dotnet-exercicio1-upskilling\Exercicio\obj\Debug\Exercicio.csproj.CoreCompileInputs.cache
 D:\code\Ânima\Upskilling .Net\Trabalhos\dotnet-exercicio1-upskilling\Exercicio\obj\Debug\Exercicio.exe
 D:\code\Ânima\Upskilling .Net\Trabalhos\dotnet-exercicio1-upskilling\Exercicio\obj\Debug\Exercicio.pdb
+C:\Edu\Aulas\UpSkilling\dotnet-exercicio1-upskilling\Exercicio\bin\Debug\Exercicio.exe.config
+C:\Edu\Aulas\UpSkilling\dotnet-exercicio1-upskilling\Exercicio\bin\Debug\Exercicio.exe
+C:\Edu\Aulas\UpSkilling\dotnet-exercicio1-upskilling\Exercicio\bin\Debug\Exercicio.pdb
+C:\Edu\Aulas\UpSkilling\dotnet-exercicio1-upskilling\Exercicio\bin\Debug\Newtonsoft.Json.dll
+C:\Edu\Aulas\UpSkilling\dotnet-exercicio1-upskilling\Exercicio\bin\Debug\Newtonsoft.Json.xml
+C:\Edu\Aulas\UpSkilling\dotnet-exercicio1-upskilling\Exercicio\obj\Debug\Exercicio.csproj.AssemblyReference.cache
+C:\Edu\Aulas\UpSkilling\dotnet-exercicio1-upskilling\Exercicio\obj\Debug\Exercicio.csproj.SuggestedBindingRedirects.cache
+C:\Edu\Aulas\UpSkilling\dotnet-exercicio1-upskilling\Exercicio\obj\Debug\Exercicio.csproj.CoreCompileInputs.cache
+C:\Edu\Aulas\UpSkilling\dotnet-exercicio1-upskilling\Exercicio\obj\Debug\Exercicio.csproj.CopyComplete
+C:\Edu\Aulas\UpSkilling\dotnet-exercicio1-upskilling\Exercicio\obj\Debug\Exercicio.exe
+C:\Edu\Aulas\UpSkilling\dotnet-exercicio1-upskilling\Exercicio\obj\Debug\Exercicio.pdb
