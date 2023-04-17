@@ -3,7 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -25,6 +27,12 @@ namespace Exercicio
 
             Console.Write("Informe o valor inicial do estacionamento por minuto R$ ");
             preco = Double.Parse(Console.ReadLine());
+
+            var carro = new {   Id = Guid.NewGuid(),
+                                Cliente_id = Guid.NewGuid(),
+                                Marca = "Marca 01",
+                                Modelo = "marca 02",
+                                Placa = "placa 01" };
 
             while (true)
             {
@@ -67,15 +75,15 @@ namespace Exercicio
                         Console.Write("Informe o CPF do cliente: ");
                         string cpf = Console.ReadLine();
 
-                        dynamic cliente = new { 
-                            Id = Guid.NewGuid(), 
-                            Nome = nome, 
-                            Cpf = cpf, 
-                            Veiculos = new List<dynamic>() };
+                        dynamic cliente = new
+                        {
+                            Id = Guid.NewGuid(),
+                            Nome = nome,
+                            Cpf = cpf,
+                            Veiculos = new List<dynamic>()
+                        };
 
-                        clientes.Add(cliente);
-
-                        JsonPersistenciaService.Salvar(clientes);
+                        JsonPersistenciaService.Salvar(cliente);
 
                         Console.WriteLine("Cliente cadastrado com sucesso!");
                         Thread.Sleep(1000);
@@ -122,9 +130,7 @@ namespace Exercicio
                                 Modelo = modelo, 
                                 Placa = placa };
 
-                            var clienteVeiculo = clientes[encontrado].Veiculos.Add(veiculo);
-
-                            JsonPersistenciaService.Salvar(clienteVeiculo);
+                            JsonPersistenciaService.SalvarVeiculo(encontrado, veiculo);
 
                             Console.WriteLine("Veículo cadastrado com sucesso!");
                             Thread.Sleep(1000);
