@@ -12,6 +12,7 @@ namespace Exercicio.Repository
             string stringJson = JsonConvert.SerializeObject(argument);
 
             var sistema = Environment.OSVersion.Platform;
+
             string caminhoArquivo;
 
             if (sistema != PlatformID.Unix)
@@ -23,7 +24,7 @@ namespace Exercicio.Repository
             File.WriteAllText(caminhoArquivo, stringJson);
         }
 
-        public static List<object> Lista(string nomeArquivo)
+        public static List<dynamic> Lista(string nomeArquivo)
         {
             string caminhoArquivo;
 
@@ -35,11 +36,11 @@ namespace Exercicio.Repository
                 caminhoArquivo = Directory.GetCurrentDirectory() + "/" + nomeArquivo;
 
             if (!File.Exists(caminhoArquivo))
-                return new List<object>();
+                return new List<dynamic>();
 
             string stringJson = File.ReadAllText(caminhoArquivo);
 
-            List<object> clientes = JsonConvert.DeserializeObject<List<object>>(stringJson);
+            List<dynamic> clientes = JsonConvert.DeserializeObject<List<dynamic>>(stringJson);
 
             return clientes;
         }
