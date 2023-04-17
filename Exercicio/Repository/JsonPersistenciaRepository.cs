@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Exercicio.Model;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -24,7 +25,7 @@ namespace Exercicio.Repository
             File.WriteAllText(caminhoArquivo, stringJson);
         }
 
-        public static List<dynamic> Lista(string nomeArquivo)
+        public static List<ClienteModel> Lista(string nomeArquivo)
         {
             string caminhoArquivo;
 
@@ -36,11 +37,11 @@ namespace Exercicio.Repository
                 caminhoArquivo = Directory.GetCurrentDirectory() + "/" + nomeArquivo;
 
             if (!File.Exists(caminhoArquivo))
-                return new List<dynamic>();
+                return new List<ClienteModel>();
 
             string stringJson = File.ReadAllText(caminhoArquivo);
 
-            List<dynamic> clientes = JsonConvert.DeserializeObject<List<dynamic>>(stringJson);
+            List<ClienteModel> clientes = JsonConvert.DeserializeObject<List<ClienteModel>>(stringJson);
 
             return clientes;
         }

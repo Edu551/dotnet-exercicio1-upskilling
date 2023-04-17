@@ -28,12 +28,6 @@ namespace Exercicio
             Console.Write("Informe o valor inicial do estacionamento por minuto R$ ");
             preco = Double.Parse(Console.ReadLine());
 
-            var carro = new {   Id = Guid.NewGuid(),
-                                Cliente_id = Guid.NewGuid(),
-                                Marca = "Marca 01",
-                                Modelo = "marca 02",
-                                Placa = "placa 01" };
-
             while (true)
             {
                 Console.Clear();
