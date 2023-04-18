@@ -1,4 +1,5 @@
-﻿using Exercicio.Model;
+﻿using Exercicio.Context;
+using Exercicio.Model;
 using Exercicio.Repositories.Interfaces;
 using Exercicio.Services;
 using Exercicio.Services.Interfaces;
@@ -14,16 +15,17 @@ namespace Exercicio
     {
         static void Main(string[] args)
         {
-            IJsonPersistenciaService<ClienteModel> _clienteJsonPersistenceService = new ClienteJsonPersistenciaService<ClienteModel>();
+            // Iniciando as bases
+            JsonContext.CarregarBases();
+            var clientes = JsonContext.Clientes.ToList();
+            var veiculos = JsonContext.Veiculos.ToList();
+            var acessos = JsonContext.Acessos.ToList();
+            var receita = JsonContext.Receita.ToList();
+
+            IJsonPersistenciaService <ClienteModel> _clienteJsonPersistenceService = new ClienteJsonPersistenciaService<ClienteModel>();
             //IJsonPersistenceService<VeiculoModel> _veiculoJsonPersistenceService = new VeiculoJsonPersistenceService <VeiculoModel>();
             //IJsonPersistenceService<ControleModel> _controleAcessoJsonPersistenceService = new ControleAcessoJsonPersistenceService<ControleModel>();
             //IJsonPersistenceService<ReceitaModel> _receitaJsonPersistenceService = new ReceitaJsonPersistenceService<ReceitaModel>();
-
-            var _ = _clienteJsonPersistenceService.Recuperar() ?? Enumerable.Empty<dynamic>();
-            var clientes = _.ToList();
-            //var veiculo = _veiculoJsonPersistenceService.Recuperar();
-            //var acessos = _controleAcessoJsonPersistenceService.Recuperar();
-            //var clientes = _receitaJsonPersistenceService.Recuperar();
 
             var estacionados = new List<dynamic>();
 
@@ -130,7 +132,7 @@ namespace Exercicio
                             string placa = Console.ReadLine();
 
                             dynamic veiculo = new { 
-                                Id = Guid.NewGuid(), 
+                                Id = Guid.NewGuid().ToString(), 
                                 Cliente_id = clienteEncontrado.Id, 
                                 Marca = marca, 
                                 Modelo = modelo, 

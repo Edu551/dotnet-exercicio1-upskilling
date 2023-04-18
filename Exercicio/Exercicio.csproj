@@ -46,7 +46,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Context\JsonContext.cs" />
     <Compile Include="Model\ClienteModel.cs" />
+    <Compile Include="Model\ControleAcessosModel.cs" />
+    <Compile Include="Model\ReceitaModel.cs" />
     <Compile Include="Model\VeiculoModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
