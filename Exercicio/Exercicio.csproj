@@ -47,11 +47,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\ClienteModel.cs" />
-    <Compile Include="Model\VeiculoModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository\JsonPersistenciaRepository.cs" />
-    <Compile Include="Services\JsonPersistenciaService.cs" />
+    <Compile Include="Repositories\Interfaces\IJsonPersistenciaRepository.cs" />
+    <Compile Include="Repositories\ClienteJsonPersistenciaRepository.cs" />
+    <Compile Include="Services\VeiculoJsonPersistenceService.cs" />
+    <Compile Include="Services\ControleAcessoJsonPersistenceService.cs" />
+    <Compile Include="Services\ReceitaJsonPersistenceService.cs" />
+    <Compile Include="Services\Interfaces\IJsonPersistenceService.cs" />
+    <Compile Include="Services\ClienteJsonPersistenciaService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

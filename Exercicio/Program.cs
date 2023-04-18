@@ -1,4 +1,7 @@
-﻿using Exercicio.Services;
+﻿using Exercicio.Model;
+using Exercicio.Repositories.Interfaces;
+using Exercicio.Services;
+using Exercicio.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -15,7 +18,16 @@ namespace Exercicio
     {
         static void Main(string[] args)
         {
-            var clientes = JsonPersistenciaService.Lista();
+            IJsonPersistenciaService<ClienteModel> _clienteJsonPersistenceService = new ClienteJsonPersistenciaService<ClienteModel>();
+            //IJsonPersistenceService<VeiculoModel> _veiculoJsonPersistenceService = new VeiculoJsonPersistenceService <VeiculoModel>();
+            //IJsonPersistenceService<ControleModel> _controleAcessoJsonPersistenceService = new ControleAcessoJsonPersistenceService<ControleModel>();
+            //IJsonPersistenceService<ReceitaModel> _receitaJsonPersistenceService = new ReceitaJsonPersistenceService<ReceitaModel>();
+
+            var clientes = _clienteJsonPersistenceService.Recuperar();
+            //var veiculo = _veiculoJsonPersistenceService.Recuperar();
+            //var acessos = _controleAcessoJsonPersistenceService.Recuperar();
+            //var clientes = _receitaJsonPersistenceService.Recuperar();
+
             var estacionados = new List<dynamic>();
 
             double preco = 0;
@@ -54,7 +66,6 @@ namespace Exercicio
                         Console.Clear();
                         Console.WriteLine("=========Alteração de preço=======");
 
-
                         Console.Write("Digite o valor por minuto R$ ");
                         preco = Double.Parse(Console.ReadLine());
                         break;
@@ -77,7 +88,7 @@ namespace Exercicio
                             Veiculos = new List<dynamic>()
                         };
 
-                        JsonPersistenciaService.Salvar(cliente);
+                        _clienteJsonPersistenceService.Salvar(cliente);
 
                         Console.WriteLine("Cliente cadastrado com sucesso!");
                         Thread.Sleep(1000);

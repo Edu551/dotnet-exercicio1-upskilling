@@ -25,3 +25,6 @@ C:\Edu\Aulas\UpSkilling\dotnet-exercicio1-upskilling\Exercicio\obj\Debug\Exercic
 C:\Edu\Aulas\UpSkilling\dotnet-exercicio1-upskilling\Exercicio\obj\Debug\Exercicio.csproj.CopyComplete
 C:\Edu\Aulas\UpSkilling\dotnet-exercicio1-upskilling\Exercicio\obj\Debug\Exercicio.exe
 C:\Edu\Aulas\UpSkilling\dotnet-exercicio1-upskilling\Exercicio\obj\Debug\Exercicio.pdb
+C:\Users\rafael.deroncio\Desktop\Rafael\Gama\GitHubGrupo\dotnet-exercicio1-upskilling\Exercicio\obj\Debug\Exercicio.csproj.AssemblyReference.cache
+C:\Users\rafael.deroncio\Desktop\Rafael\Gama\GitHubGrupo\dotnet-exercicio1-upskilling\Exercicio\obj\Debug\Exercicio.csproj.SuggestedBindingRedirects.cache
+C:\Users\rafael.deroncio\Desktop\Rafael\Gama\GitHubGrupo\dotnet-exercicio1-upskilling\Exercicio\obj\Debug\Exercicio.csproj.CoreCompileInputs.cache
