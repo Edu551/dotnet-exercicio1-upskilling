@@ -1,30 +1,11 @@
-D:\code\Ânima\Upskilling .Net\Trabalhos\Exercicio\Exercicio\obj\Debug\Exercicio.csproj.AssemblyReference.cache
-D:\code\Ânima\Upskilling .Net\Trabalhos\Exercicio\Exercicio\obj\Debug\Exercicio.csproj.SuggestedBindingRedirects.cache
-D:\code\Ânima\Upskilling .Net\Trabalhos\Exercicio\Exercicio\obj\Debug\Exercicio.csproj.CoreCompileInputs.cache
-D:\code\Ânima\Upskilling .Net\Trabalhos\Exercicio\Exercicio\bin\Debug\Exercicio.exe.config
-D:\code\Ânima\Upskilling .Net\Trabalhos\Exercicio\Exercicio\bin\Debug\Exercicio.exe
-D:\code\Ânima\Upskilling .Net\Trabalhos\Exercicio\Exercicio\bin\Debug\Exercicio.pdb
-D:\code\Ânima\Upskilling .Net\Trabalhos\Exercicio\Exercicio\obj\Debug\Exercicio.exe
-D:\code\Ânima\Upskilling .Net\Trabalhos\Exercicio\Exercicio\obj\Debug\Exercicio.pdb
-D:\code\Ânima\Upskilling .Net\Trabalhos\dotnet-exercicio1-upskilling\Exercicio\bin\Debug\Exercicio.exe.config
-D:\code\Ânima\Upskilling .Net\Trabalhos\dotnet-exercicio1-upskilling\Exercicio\bin\Debug\Exercicio.exe
-D:\code\Ânima\Upskilling .Net\Trabalhos\dotnet-exercicio1-upskilling\Exercicio\bin\Debug\Exercicio.pdb
-D:\code\Ânima\Upskilling .Net\Trabalhos\dotnet-exercicio1-upskilling\Exercicio\obj\Debug\Exercicio.csproj.AssemblyReference.cache
-D:\code\Ânima\Upskilling .Net\Trabalhos\dotnet-exercicio1-upskilling\Exercicio\obj\Debug\Exercicio.csproj.SuggestedBindingRedirects.cache
-D:\code\Ânima\Upskilling .Net\Trabalhos\dotnet-exercicio1-upskilling\Exercicio\obj\Debug\Exercicio.csproj.CoreCompileInputs.cache
-D:\code\Ânima\Upskilling .Net\Trabalhos\dotnet-exercicio1-upskilling\Exercicio\obj\Debug\Exercicio.exe
-D:\code\Ânima\Upskilling .Net\Trabalhos\dotnet-exercicio1-upskilling\Exercicio\obj\Debug\Exercicio.pdb
-C:\Edu\Aulas\UpSkilling\dotnet-exercicio1-upskilling\Exercicio\bin\Debug\Exercicio.exe.config
-C:\Edu\Aulas\UpSkilling\dotnet-exercicio1-upskilling\Exercicio\bin\Debug\Exercicio.exe
-C:\Edu\Aulas\UpSkilling\dotnet-exercicio1-upskilling\Exercicio\bin\Debug\Exercicio.pdb
-C:\Edu\Aulas\UpSkilling\dotnet-exercicio1-upskilling\Exercicio\bin\Debug\Newtonsoft.Json.dll
-C:\Edu\Aulas\UpSkilling\dotnet-exercicio1-upskilling\Exercicio\bin\Debug\Newtonsoft.Json.xml
-C:\Edu\Aulas\UpSkilling\dotnet-exercicio1-upskilling\Exercicio\obj\Debug\Exercicio.csproj.AssemblyReference.cache
-C:\Edu\Aulas\UpSkilling\dotnet-exercicio1-upskilling\Exercicio\obj\Debug\Exercicio.csproj.SuggestedBindingRedirects.cache
-C:\Edu\Aulas\UpSkilling\dotnet-exercicio1-upskilling\Exercicio\obj\Debug\Exercicio.csproj.CoreCompileInputs.cache
-C:\Edu\Aulas\UpSkilling\dotnet-exercicio1-upskilling\Exercicio\obj\Debug\Exercicio.csproj.CopyComplete
-C:\Edu\Aulas\UpSkilling\dotnet-exercicio1-upskilling\Exercicio\obj\Debug\Exercicio.exe
-C:\Edu\Aulas\UpSkilling\dotnet-exercicio1-upskilling\Exercicio\obj\Debug\Exercicio.pdb
 C:\Users\rafael.deroncio\Desktop\Rafael\Gama\GitHubGrupo\dotnet-exercicio1-upskilling\Exercicio\obj\Debug\Exercicio.csproj.AssemblyReference.cache
 C:\Users\rafael.deroncio\Desktop\Rafael\Gama\GitHubGrupo\dotnet-exercicio1-upskilling\Exercicio\obj\Debug\Exercicio.csproj.SuggestedBindingRedirects.cache
 C:\Users\rafael.deroncio\Desktop\Rafael\Gama\GitHubGrupo\dotnet-exercicio1-upskilling\Exercicio\obj\Debug\Exercicio.csproj.CoreCompileInputs.cache
+C:\Users\rafael.deroncio\Desktop\Rafael\Gama\GitHubGrupo\dotnet-exercicio1-upskilling\Exercicio\bin\Debug\Exercicio.exe.config
+C:\Users\rafael.deroncio\Desktop\Rafael\Gama\GitHubGrupo\dotnet-exercicio1-upskilling\Exercicio\bin\Debug\Exercicio.exe
+C:\Users\rafael.deroncio\Desktop\Rafael\Gama\GitHubGrupo\dotnet-exercicio1-upskilling\Exercicio\bin\Debug\Exercicio.pdb
+C:\Users\rafael.deroncio\Desktop\Rafael\Gama\GitHubGrupo\dotnet-exercicio1-upskilling\Exercicio\bin\Debug\Newtonsoft.Json.dll
+C:\Users\rafael.deroncio\Desktop\Rafael\Gama\GitHubGrupo\dotnet-exercicio1-upskilling\Exercicio\bin\Debug\Newtonsoft.Json.xml
+C:\Users\rafael.deroncio\Desktop\Rafael\Gama\GitHubGrupo\dotnet-exercicio1-upskilling\Exercicio\obj\Debug\Exercicio.csproj.CopyComplete
+C:\Users\rafael.deroncio\Desktop\Rafael\Gama\GitHubGrupo\dotnet-exercicio1-upskilling\Exercicio\obj\Debug\Exercicio.exe
+C:\Users\rafael.deroncio\Desktop\Rafael\Gama\GitHubGrupo\dotnet-exercicio1-upskilling\Exercicio\obj\Debug\Exercicio.pdb

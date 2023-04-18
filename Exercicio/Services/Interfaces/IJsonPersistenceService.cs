@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Exercicio.Services.Interfaces
 {
     internal interface IJsonPersistenciaService<T> where T : class
     {
         IEnumerable<dynamic> Recuperar();
-        dynamic Recuperar(int id);
+        dynamic Recuperar(string id);
         bool Salvar(List<dynamic> models);
         bool Salvar(dynamic model);
         bool Deletar(List<dynamic> models);

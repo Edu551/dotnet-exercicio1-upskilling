@@ -26,7 +26,7 @@ namespace Exercicio.Repository
             bool isWindows = System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows);
             string separador = isWindows ? "\\" : "/";
 
-            string caminhoArquivo = caminhoRaiz + separador + nomeRepositorio + ".json";
+            string caminhoArquivo = caminhoRaiz + separador + nomeRepositorio;
 
             if (File.Exists(caminhoArquivo))
                 return caminhoArquivo;
@@ -73,6 +73,10 @@ namespace Exercicio.Repository
         public IEnumerable<T> Recuperar()
         {
             string clientesJson = File.ReadAllText(_contextPath);
+
+            if (clientesJson is null)
+                return Enumerable.Empty<T>();
+
             return JsonConvert.DeserializeObject<List<T>>(clientesJson);
         }
 

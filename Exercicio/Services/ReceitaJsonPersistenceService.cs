@@ -6,49 +6,49 @@ using System.Threading.Tasks;
 
 namespace Exercicio.Services
 {
-    public class ReceitaJsonPersistenceService<T> : IJsonPersistenciaRepository<T> where T : ClienteModel
+    public class ReceitaJsonPersistenceService<T> : IJsonPersistenciaService<T> where T : ClienteModel
     {
         public ReceitaJsonPersistenceService()
         {
 
         }
 
-        public Task<bool> Atualizar(List<T> models)
+        public bool Atualizar(List<dynamic> models)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> Atualizar(T model)
+        public bool Atualizar(dynamic model)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> Deletar(List<T> models)
+        public bool Deletar(List<dynamic> models)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> Deletar(T model)
+        public bool Deletar(dynamic model)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<T>> Recuperar(List<int> ids)
+        public IEnumerable<dynamic> Recuperar()
         {
             throw new NotImplementedException();
         }
 
-        public Task<T> Recuperar(int id)
+        public dynamic Recuperar(string id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> Salvar(List<T> models)
+        public bool Salvar(List<dynamic> models)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> Salvar(T model)
+        public bool Salvar(dynamic model)
         {
             throw new NotImplementedException();
         }

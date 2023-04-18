@@ -6,11 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace Exercicio
 {
@@ -23,7 +19,8 @@ namespace Exercicio
             //IJsonPersistenceService<ControleModel> _controleAcessoJsonPersistenceService = new ControleAcessoJsonPersistenceService<ControleModel>();
             //IJsonPersistenceService<ReceitaModel> _receitaJsonPersistenceService = new ReceitaJsonPersistenceService<ReceitaModel>();
 
-            var clientes = _clienteJsonPersistenceService.Recuperar();
+            var _ = _clienteJsonPersistenceService.Recuperar() ?? Enumerable.Empty<dynamic>();
+            var clientes = _.ToList();
             //var veiculo = _veiculoJsonPersistenceService.Recuperar();
             //var acessos = _controleAcessoJsonPersistenceService.Recuperar();
             //var clientes = _receitaJsonPersistenceService.Recuperar();
@@ -75,14 +72,18 @@ namespace Exercicio
                         Console.WriteLine("=========Cadastro de cliente=======");
 
 
-                        Console.Write("Informe o nome do cliente: ");
-                        string nome = Console.ReadLine();
-                        Console.Write("Informe o CPF do cliente: ");
-                        string cpf = Console.ReadLine();
+                        //Console.Write("Informe o nome do cliente: ");
+                        //string nome = Console.ReadLine();
+                        //Console.Write("Informe o CPF do cliente: ");
+                        //string cpf = Console.ReadLine();
+
+                        // Testes
+                        string nome = "Rafael";
+                        string cpf = "55355455655";
 
                         dynamic cliente = new
                         {
-                            Id = Guid.NewGuid(),
+                            Id = Guid.NewGuid().ToString(),
                             Nome = nome,
                             Cpf = cpf,
                             Veiculos = new List<dynamic>()
@@ -135,7 +136,7 @@ namespace Exercicio
                                 Modelo = modelo, 
                                 Placa = placa };
 
-                            JsonPersistenciaService.SalvarVeiculo(encontrado, veiculo);
+                            //JsonPersistenciaService.SalvarVeiculo(encontrado, veiculo);
 
                             Console.WriteLine("Veículo cadastrado com sucesso!");
                             Thread.Sleep(1000);

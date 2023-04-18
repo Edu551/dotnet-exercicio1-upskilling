@@ -2,10 +2,8 @@
 using Exercicio.Repositories.Interfaces;
 using Exercicio.Repository;
 using Exercicio.Services.Interfaces;
-using System;
 using System.Collections.Generic;
-using System.Reflection;
-using System.Threading.Tasks;
+using System.Linq;
 
 namespace Exercicio.Services
 {
@@ -20,11 +18,11 @@ namespace Exercicio.Services
 
         public bool Atualizar(List<dynamic> models)
         {
-            List<ClienteModel> clientesModel = new List<ClienteModel>();
+            List<T> clientesModel = new List<T>();
 
             models.ForEach(model =>
             {
-                List<ClienteModel> clienteModel = new List<ClienteModel>()
+                ClienteModel clienteModel = new ClienteModel()
                 {
                     Id = model.Id,
                     Nome = model.Nome,
@@ -46,7 +44,7 @@ namespace Exercicio.Services
                 Veiculos = model.Veiculos
             };
 
-            return _clienteJsonPersistenciaRepository.Atualizar(clienteModel);
+            return _clienteJsonPersistenciaRepository.Atualizar(clienteModel as T);
         }
 
         public bool Deletar(List<dynamic> models)
@@ -55,7 +53,7 @@ namespace Exercicio.Services
 
             models.ForEach(model =>
             {
-                List<ClienteModel> clienteModel = new List<ClienteModel>()
+                ClienteModel clienteModel = new ClienteModel()
                 {
                     Id = model.Id,
                     Nome = model.Nome,
@@ -64,7 +62,7 @@ namespace Exercicio.Services
                 };
             });
 
-            return _clienteJsonPersistenciaRepository.Deletar(clientesModel);
+            return _clienteJsonPersistenciaRepository.Deletar(clientesModel as T);
         }
 
         public bool Deletar(dynamic model)
@@ -77,7 +75,7 @@ namespace Exercicio.Services
                 Veiculos = model.Veiculos
             };
 
-            return _clienteJsonPersistenciaRepository.Deletar(clienteModel);
+            return _clienteJsonPersistenciaRepository.Deletar(clienteModel as T );
         }
 
         public IEnumerable<dynamic> Recuperar()
@@ -85,7 +83,7 @@ namespace Exercicio.Services
             return _clienteJsonPersistenciaRepository.Recuperar();
         }
 
-        public dynamic Recuperar(int id)
+        public dynamic Recuperar(string id)
         {
             return _clienteJsonPersistenciaRepository.Recuperar(id);
         }
@@ -96,7 +94,7 @@ namespace Exercicio.Services
 
             models.ForEach(model =>
             {
-                List<ClienteModel> clienteModel = new List<ClienteModel>()
+                ClienteModel clienteModel = new ClienteModel()
                 {
                     Id = model.Id,
                     Nome = model.Nome,
@@ -105,20 +103,20 @@ namespace Exercicio.Services
                 };
             });
 
-            return _clienteJsonPersistenciaRepository.Salvar(clientesModel);
+            return _clienteJsonPersistenciaRepository.Salvar(clientesModel as T);
         }
 
         public bool Salvar(dynamic model)
         {
-            ClienteModel clienteModel = new()
+            ClienteModel clienteModel = new ClienteModel()
             {
                 Id = model.Id,
                 Nome = model.Nome,
                 Cpf = model.Cpf,
-                Veiculos = model.Veiculos
+                Veiculos = model.Veiculos as List<VeiculoModel>
             };
 
-            return _clienteJsonPersistenciaRepository.Salvar(clienteModel);
+            return _clienteJsonPersistenciaRepository.Salvar(clienteModel as T);
         }
     }
 }
