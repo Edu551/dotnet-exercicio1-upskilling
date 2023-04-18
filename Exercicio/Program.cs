@@ -253,7 +253,7 @@ namespace Exercicio
 
                                 if (!erro)
                                 {
-                                    dynamic estacionado = new { Id = new Guid(), Veiculo_id = veiculoEntrada.Id, Entrada = dataHoraEntrada, Saida = "" };
+                                    dynamic estacionado = new { Id = Guid.NewGuid(), Veiculo_id = veiculoEntrada.Id, Entrada = dataHoraEntrada, Saida = "" };
                                     
                                     JsonPersistenciaService.SalvarEstacionado(estacionado);
                                     estacionados = JsonPersistenciaService.Lista<EstacionadoModel>("estacionados.json");
@@ -312,7 +312,9 @@ namespace Exercicio
                             Console.Write("Informe a data e hora (dd/MM/yyyy HH:mm) de saída do veículo ou ENTER para usar data/hora atual: ");
                             string dataInformada = Console.ReadLine();
 
-                            DateTime dataHoraSaida = DateTime.Now;
+
+                            // Está adicionando 2 min apenas para testarmos
+                            DateTime dataHoraSaida = DateTime.Now.AddMinutes(2);
                             bool erro = false;
 
                             if (dataInformada != "")
@@ -345,7 +347,7 @@ namespace Exercicio
 
                                 estacionados.RemoveAt(posicaoVeiculoEstacionado);
 
-                                JsonPersistenciaService.SalvarEstacionado(estacionados);
+                                JsonPersistenciaService.SalvarSaidaEstacionado(estacionados);
                                 estacionados = JsonPersistenciaService.Lista<EstacionadoModel>("estacionados.json");
 
                                 Console.WriteLine("Pressione qualquer tecla para voltar ao menu ...");

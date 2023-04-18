@@ -78,7 +78,12 @@ namespace Exercicio.Services
             lista.Add(estacionadoNovo);
 
             JsonPersistenciaRepository.Salvar("estacionados.json", lista);
-    }
+        }
+
+        public static void SalvarSaidaEstacionado(List<EstacionadoModel> estacionados)
+        {        
+            JsonPersistenciaRepository.Salvar("estacionados.json", estacionados);
+        }
 
         public static List<T> Lista<T>(string arquivo) where T : class
         {
