@@ -272,8 +272,7 @@ namespace Exercicio
 
                         Console.Write("Informe a placa do veículo: ");
                         string placaVeiculoSaida = Console.ReadLine();
-
-                        DateTime dataHoraEntradaVeiculo = DateTime.Now;
+                        
                         dynamic veiculoEncontrado = null;
                         dynamic veiculoEstacionado = null;
                         int posicaoVeiculoEstacionado = -1;
@@ -308,7 +307,10 @@ namespace Exercicio
                         }
                         else
                         {
+                            DateTime dataHoraEntradaVeiculo = veiculoEstacionado.Entrada;
+
                             Console.WriteLine($"Entrada do veículo: {dataHoraEntradaVeiculo}");
+
                             Console.Write("Informe a data e hora (dd/MM/yyyy HH:mm) de saída do veículo ou ENTER para usar data/hora atual: ");
                             string dataInformada = Console.ReadLine();
 
