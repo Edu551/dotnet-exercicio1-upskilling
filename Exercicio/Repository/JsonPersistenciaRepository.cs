@@ -25,7 +25,7 @@ namespace Exercicio.Repository
             File.WriteAllText(caminhoArquivo, stringJson);
         }
 
-        public static List<ClienteModel> Lista(string nomeArquivo)
+        public static List<T>  Lista<T>(string nomeArquivo) where T : class
         {
             string caminhoArquivo;
 
@@ -37,11 +37,11 @@ namespace Exercicio.Repository
                 caminhoArquivo = Directory.GetCurrentDirectory() + "/" + nomeArquivo;
 
             if (!File.Exists(caminhoArquivo))
-                return new List<ClienteModel>();
+                return new List<T>();
 
             string stringJson = File.ReadAllText(caminhoArquivo);
 
-            List<ClienteModel> clientes = JsonConvert.DeserializeObject<List<ClienteModel>>(stringJson);
+            List<T> clientes = JsonConvert.DeserializeObject<List<T>>(stringJson);
 
             return clientes;
         }
