@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -15,17 +16,38 @@ namespace Exercicio.Services
     {
         public static void Salvar(dynamic cliente)
         {
-            var lista = JsonPersistenciaRepository.Lista("clientes.json");
+            var lista = JsonPersistenciaRepository.Lista<ClienteModel>("clientes.json");
 
-            lista.Add(cliente);
+            var listaVeiculo = new List<VeiculoModel>();
+
+            foreach (var veiculo in cliente.Veiculos)
+            {
+                VeiculoModel veiculoNovo = new VeiculoModel()
+                {
+                    Id = veiculo.Id.ToString(),
+                    Cliente_id = veiculo.Cliente_id,
+                    Marca = veiculo.Marca,
+                    Modelo = veiculo.Modelo,
+                    Placa = veiculo.Placa
+                };
+                listaVeiculo.Add(veiculoNovo);
+            }
+
+            ClienteModel clienteNovo = new ClienteModel()
+            {
+                Id = cliente.Id.ToString(),
+                Cpf = cliente.Cpf,
+                Nome = cliente.Nome,
+                Veiculos = listaVeiculo
+            };
+
+            lista.Add(clienteNovo);
             JsonPersistenciaRepository.Salvar("clientes.json", lista);
         }
 
         public static void SalvarVeiculo(int indice, dynamic veiculo)
         {
-            var lista = JsonPersistenciaRepository.Lista("clientes.json");
-
-            //List<VeiculoModel> listaVeiculos = new List<VeiculoModel> { veiculo };
+            var lista = JsonPersistenciaRepository.Lista<ClienteModel>("clientes.json");
 
             VeiculoModel veiculoNovo = new VeiculoModel()
             {
@@ -36,22 +58,31 @@ namespace Exercicio.Services
                 Placa = veiculo.Placa
             };
 
-            //ClienteModel clienteNovo = new ClienteModel()
-            //{
-            //    Id = lista[indice].Id.ToString(),
-            //    Cpf = lista[indice].Cpf,
-            //    Nome = lista[indice].Nome,
-            //    Veiculos = lista[indice].Veiculos
-            //};
-
             lista[indice].Veiculos.Add(veiculoNovo);
 
             JsonPersistenciaRepository.Salvar("clientes.json", lista);
         }
 
-        public static List<ClienteModel> Lista()
-        {            
-            return JsonPersistenciaRepository.Lista("clientes.json");
+        public static void SalvarEstacionado(dynamic estacionado)
+        {
+            var lista = JsonPersistenciaRepository.Lista<EstacionadoModel>("estacionados.json");
+
+            EstacionadoModel estacionadoNovo = new EstacionadoModel()
+            {
+                Id = estacionado.Id.ToString(),
+                Veiculo_id = estacionado.Veiculo_id,
+                Entrada = DateTime.Now,
+                Saida = (estacionado.Saida != "") ? estacionado.Saida : null
+            };
+
+            lista.Add(estacionadoNovo);
+
+            JsonPersistenciaRepository.Salvar("estacionados.json", lista);
+    }
+
+        public static List<T> Lista<T>(string arquivo) where T : class
+        {
+            return JsonPersistenciaRepository.Lista<T>(arquivo);
         }
     }
 }

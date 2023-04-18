@@ -1,4 +1,5 @@
-﻿using Exercicio.Services;
+﻿using Exercicio.Model;
+using Exercicio.Services;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -15,8 +16,8 @@ namespace Exercicio
     {
         static void Main(string[] args)
         {
-            var clientes = JsonPersistenciaService.Lista();
-            var estacionados = new List<dynamic>();
+            var clientes = JsonPersistenciaService.Lista<ClienteModel>("clientes.json");
+            var estacionados = JsonPersistenciaService.Lista<EstacionadoModel>("estacionados.json");
 
             double preco = 0;
             double receitaTotal = 0;
@@ -78,6 +79,7 @@ namespace Exercicio
                         };
 
                         JsonPersistenciaService.Salvar(cliente);
+                        clientes = JsonPersistenciaService.Lista<ClienteModel>("clientes.json");
 
                         Console.WriteLine("Cliente cadastrado com sucesso!");
                         Thread.Sleep(1000);
@@ -125,6 +127,7 @@ namespace Exercicio
                                 Placa = placa };
 
                             JsonPersistenciaService.SalvarVeiculo(encontrado, veiculo);
+                            clientes = JsonPersistenciaService.Lista<ClienteModel>("clientes.json");
 
                             Console.WriteLine("Veículo cadastrado com sucesso!");
                             Thread.Sleep(1000);
@@ -134,7 +137,6 @@ namespace Exercicio
                     case "4":
                         Console.Clear();
                         Console.WriteLine("=========Lista de clientes=======");
-
 
                         foreach (var item in clientes)
                         {
@@ -252,7 +254,9 @@ namespace Exercicio
                                 if (!erro)
                                 {
                                     dynamic estacionado = new { Id = new Guid(), Veiculo_id = veiculoEntrada.Id, Entrada = dataHoraEntrada, Saida = "" };
-                                    estacionados.Add(estacionado);
+                                    
+                                    JsonPersistenciaService.SalvarEstacionado(estacionado);
+                                    estacionados = JsonPersistenciaService.Lista<EstacionadoModel>("estacionados.json");
 
                                     Console.WriteLine("Veículo estacionado com sucesso!");
                                     Thread.Sleep(1000);
@@ -340,6 +344,9 @@ namespace Exercicio
                                 receitaTotal += totalTicket;
 
                                 estacionados.RemoveAt(posicaoVeiculoEstacionado);
+
+                                JsonPersistenciaService.SalvarEstacionado(estacionados);
+                                estacionados = JsonPersistenciaService.Lista<EstacionadoModel>("estacionados.json");
 
                                 Console.WriteLine("Pressione qualquer tecla para voltar ao menu ...");
                                 Console.ReadKey();
