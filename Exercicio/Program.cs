@@ -1,8 +1,12 @@
-﻿using System;
+﻿using Exercicio.Model;
+using Exercicio.Services;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -12,10 +16,12 @@ namespace Exercicio
     {
         static void Main(string[] args)
         {
-            var clientes = new List<dynamic>();
-            var estacionados = new List<dynamic>();
+            var clientes = JsonPersistenciaService.Lista<ClienteModel>("clientes.json");
+            var estacionados = JsonPersistenciaService.Lista<EstacionadoModel>("estacionados.json");
+
             double preco = 0;
             double receitaTotal = 0;
+
             Console.WriteLine("==============================================================");
             Console.WriteLine("                  ESTACIONAMENTO GRUPO 3                      ");
             Console.WriteLine("==============================================================");
@@ -48,28 +54,48 @@ namespace Exercicio
                     case "1":
                         Console.Clear();
                         Console.WriteLine("=========Alteração de preço=======");
+
+
                         Console.Write("Digite o valor por minuto R$ ");
                         preco = Double.Parse(Console.ReadLine());
                         break;
+
                     case "2":
                         Console.Clear();
                         Console.WriteLine("=========Cadastro de cliente=======");
+
+
                         Console.Write("Informe o nome do cliente: ");
                         string nome = Console.ReadLine();
                         Console.Write("Informe o CPF do cliente: ");
                         string cpf = Console.ReadLine();
-                        dynamic cliente = new { Id = Guid.NewGuid(), Nome = nome, Cpf = cpf, Veiculos = new List<dynamic>() };
-                        clientes.Add(cliente);
+
+                        dynamic cliente = new
+                        {
+                            Id = Guid.NewGuid(),
+                            Nome = nome,
+                            Cpf = cpf,
+                            Veiculos = new List<dynamic>()
+                        };
+
+                        JsonPersistenciaService.Salvar(cliente);
+                        clientes = JsonPersistenciaService.Lista<ClienteModel>("clientes.json");
+
                         Console.WriteLine("Cliente cadastrado com sucesso!");
                         Thread.Sleep(1000);
                         break;
+
                     case "3":
                         Console.Clear();
                         Console.WriteLine("=========Cadastro de veículos=======");
+
+
                         Console.Write("Informe o CPF do cliente: ");
                         string cpfCliente = Console.ReadLine();
+
                         int encontrado = -1;
                         dynamic clienteEncontrado = null;
+
                         for (int i = 0; i < clientes.Count(); i++)
                         {
                             if (clientes[i].Cpf == cpfCliente)
@@ -92,38 +118,54 @@ namespace Exercicio
                             string modelo = Console.ReadLine();
                             Console.Write("Informe a placa do veículo: ");
                             string placa = Console.ReadLine();
-                            dynamic veiculo = new { Id = Guid.NewGuid(), Cliente_id = clienteEncontrado.Id, Marca = marca, Modelo = modelo, Placa = placa };
-                            clientes[encontrado].Veiculos.Add(veiculo);
+
+                            dynamic veiculo = new { 
+                                Id = Guid.NewGuid(), 
+                                Cliente_id = clienteEncontrado.Id, 
+                                Marca = marca, 
+                                Modelo = modelo, 
+                                Placa = placa };
+
+                            JsonPersistenciaService.SalvarVeiculo(encontrado, veiculo);
+                            clientes = JsonPersistenciaService.Lista<ClienteModel>("clientes.json");
+
                             Console.WriteLine("Veículo cadastrado com sucesso!");
                             Thread.Sleep(1000);
                         }
-
                         break;
+
                     case "4":
                         Console.Clear();
                         Console.WriteLine("=========Lista de clientes=======");
+
                         foreach (var item in clientes)
                         {
                             Console.WriteLine($"Id: {item.Id}");
                             Console.WriteLine($"Nome: {item.Nome}");
                             Console.WriteLine($"CPF: {item.Cpf}");
+
                             Console.WriteLine("Veículos do cliente:");
+
                             foreach (var veiculo in item.Veiculos)
                             {
                                 Console.WriteLine($"Id: {veiculo.Id} - Marca: {veiculo.Marca} - Modelo: {veiculo.Modelo} - Placa: {veiculo.Placa}");
                             }
+
                             Console.WriteLine("---------------------------------");
                         }
+
                         Console.WriteLine("Pressione qualquer tecla para voltar ao menu ...");
                         Console.ReadKey();
                         break;
+
                     case "5":
                         Console.Clear();
                         Console.WriteLine("=========Lista de veículos estacionados=======");
+
+
                         if(estacionados.Count == 0)
-                        {
                             Console.WriteLine("O estacionamento está vazio!");
-                        }
+
                         foreach (var item in estacionados)
                         {
                             foreach (var itemCliente in clientes)
@@ -131,22 +173,27 @@ namespace Exercicio
                                 foreach (var veiculo in itemCliente.Veiculos)
                                 {
                                     if (item.Veiculo_id == veiculo.Id)
-                                    {
                                         Console.WriteLine($"Marca: {veiculo.Marca} - Modelo: {veiculo.Modelo} - Placa: {veiculo.Placa} - Entrada: {item.Entrada}");
-                                    }
                                 }
                             }
+
                             Console.WriteLine("---------------------------------");
                         }
+
                         Console.WriteLine("Pressione qualquer tecla para voltar ao menu ...");
                         Console.ReadKey();
                         break;
+
                     case "6":
                         Console.Clear();
                         Console.WriteLine("=========Entrada de Veículo=======");
+
+
                         Console.Write("Informe a placa do veículo: ");
                         string placaVeiculo = Console.ReadLine();
+
                         dynamic veiculoEntrada = null;
+
                         foreach (var item in clientes)
                         {
                             for (int i = 0; i < item.Veiculos.Count; i++)
@@ -158,10 +205,9 @@ namespace Exercicio
                                 }
                             }
                             if (veiculoEntrada != null)
-                            {
                                 break;
-                            }
                         }
+
                         if (veiculoEntrada == null)
                         {
                             Console.WriteLine("Erro! Veículo não encontrado, faça o cadastro do cliente/veículo ...");
@@ -187,41 +233,50 @@ namespace Exercicio
                             else
                             {
                                 Console.Write("Informe a data e hora (dd/MM/yyyy HH:mm) de entrada do veículo ou ENTER para usar data/hora atual: ");
+                                
                                 string dataInformada = Console.ReadLine();
                                 DateTime dataHoraEntrada = DateTime.Now;
                                 bool erro = false;
+
                                 if (dataInformada != "")
                                 {
                                     if (dataInformada.Length != 16)
                                     {
                                         erro = true;
+
                                         Console.WriteLine("Data/Hora informada é inválida!");
                                         Thread.Sleep(1000);
                                     }
                                     else
-                                    {
                                         dataHoraEntrada = DateTime.ParseExact(dataInformada, "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
-                                    }
                                 }
+
                                 if (!erro)
                                 {
-                                    dynamic estacionado = new { Id = new Guid(), Veiculo_id = veiculoEntrada.Id, Entrada = dataHoraEntrada, Saida = "" };
-                                    estacionados.Add(estacionado);
+                                    dynamic estacionado = new { Id = Guid.NewGuid(), Veiculo_id = veiculoEntrada.Id, Entrada = dataHoraEntrada, Saida = "" };
+                                    
+                                    JsonPersistenciaService.SalvarEstacionado(estacionado);
+                                    estacionados = JsonPersistenciaService.Lista<EstacionadoModel>("estacionados.json");
+
                                     Console.WriteLine("Veículo estacionado com sucesso!");
                                     Thread.Sleep(1000);
                                 }
                             }
                         }
                         break;
+
                     case "7":
                         Console.Clear();
                         Console.WriteLine("=========Saída de Veículo=======");
+
+
                         Console.Write("Informe a placa do veículo: ");
                         string placaVeiculoSaida = Console.ReadLine();
-                        DateTime dataHoraEntradaVeiculo = DateTime.Now;
+                        
                         dynamic veiculoEncontrado = null;
                         dynamic veiculoEstacionado = null;
                         int posicaoVeiculoEstacionado = -1;
+
                         foreach (var item in clientes)
                         {
                             for (int i = 0; i < item.Veiculos.Count; i++)
@@ -233,9 +288,7 @@ namespace Exercicio
                                 }
                             }
                             if (veiculoEncontrado != null)
-                            {
                                 break;
-                            }
                         }
 
                         for(int i = 0; i < estacionados.Count; i++)
@@ -254,11 +307,18 @@ namespace Exercicio
                         }
                         else
                         {
+                            DateTime dataHoraEntradaVeiculo = veiculoEstacionado.Entrada;
+
                             Console.WriteLine($"Entrada do veículo: {dataHoraEntradaVeiculo}");
+
                             Console.Write("Informe a data e hora (dd/MM/yyyy HH:mm) de saída do veículo ou ENTER para usar data/hora atual: ");
                             string dataInformada = Console.ReadLine();
-                            DateTime dataHoraSaida = DateTime.Now;
+
+
+                            // Está adicionando 2 min apenas para testarmos
+                            DateTime dataHoraSaida = DateTime.Now.AddMinutes(2);
                             bool erro = false;
+
                             if (dataInformada != "")
                             {
                                 if (dataInformada.Length != 16)
@@ -268,20 +328,19 @@ namespace Exercicio
                                     Thread.Sleep(1000);
                                 }
                                 else
-                                {
-                                    dataHoraSaida = DateTime.ParseExact(dataInformada, "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
-                                }
+                                    dataHoraSaida = DateTime.ParseExact(dataInformada, "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);                                
                             }
+
                             if (!erro)
                             {
                                 dataHoraEntradaVeiculo = veiculoEstacionado.Entrada;
                                 TimeSpan diferenca = dataHoraSaida.Subtract(dataHoraEntradaVeiculo);
                                 TimeSpan diferencaSemSegundos = new TimeSpan(diferenca.Hours, diferenca.Minutes, 0);
                                 double minutos = diferencaSemSegundos.TotalMinutes;
-                                if(minutos == 0)
-                                {
+
+                                if (minutos == 0)
                                     minutos = 1; //Tempo mínimo
-                                }
+
                                 double totalTicket = minutos * preco;
                                 string totalTicketString = string.Format("{0:N2}", totalTicket);
                                 Console.WriteLine($"O valor total do período é de R$: {totalTicketString}.");
@@ -290,22 +349,31 @@ namespace Exercicio
 
                                 estacionados.RemoveAt(posicaoVeiculoEstacionado);
 
+                                JsonPersistenciaService.SalvarSaidaEstacionado(estacionados);
+                                estacionados = JsonPersistenciaService.Lista<EstacionadoModel>("estacionados.json");
+
                                 Console.WriteLine("Pressione qualquer tecla para voltar ao menu ...");
                                 Console.ReadKey();
                             }
                         }
                         break;
+
                     case "8":
                         Console.Clear();
                         Console.WriteLine("=========Relatório de Receita=======");
+
+
                         string totalReceitaString = string.Format("{0:N2}", receitaTotal);
+
                         Console.WriteLine($"O valor total acumulado no estacionamento foi de R$: {totalReceitaString}.");
                         Console.WriteLine("Pressione qualquer tecla para voltar ao menu ...");
                         Console.ReadKey();
                         break;
+
                     case "9":
                         sair = true;
                         break;
+
                     default:
                         Console.WriteLine("Erro! Opção inválida ...");
                         Thread.Sleep(1000);
@@ -313,9 +381,7 @@ namespace Exercicio
                 }
 
                 if (sair)
-                {
                     break;
-                }
             }
         }
     }
